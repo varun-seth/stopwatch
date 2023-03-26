@@ -1,6 +1,9 @@
 import React, { useState, useRef } from 'react';
 import Button from '@mui/material/Button';
-
+import Fab from '@mui/material/Fab';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
+import ClearIcon from '@mui/icons-material/Clear';
 import logo from './logo.svg';
 import './App.css';
 
@@ -56,11 +59,10 @@ function App() {
                         fontFeatureSettings: "tnum",
                         fontVariantNumeric: "tabular-nums"
                     }}>{formatTime(time)}</h1>
-                    {!isRunning && <Button onClick={startTimer} variant="contained">Start</Button>}
-                    {isRunning && <Button onClick={stopTimer} variant="contained">Stop</Button>}
-                    <Button onClick={resetTimer} variant="contained">Reset</Button>
+                    {!isRunning && <Fab onClick={startTimer} variant="contained"> <PlayArrowIcon /> </Fab>}
+                    {isRunning && <Fab onClick={stopTimer} variant="contained"><StopIcon /> </Fab>}
+                    <Fab onClick={resetTimer} variant="contained"><ClearIcon /></Fab>
                 </div>
-
             </header>
         </div>
     );
