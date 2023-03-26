@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
     const [time, setTime] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
     const intervalRef = useRef(null);
     const refreshRate = 60;
 
@@ -12,15 +13,24 @@ function App() {
         intervalRef.current = setInterval(() => {
             setTime((time) => time + 1/refreshRate);
         }, 1000/refreshRate);
+        setIsRunning(true);
+
     };
 
     const stopTimer = () => {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
+        console.log({"intervalRef.current": intervalRef.current})
+        setIsRunning(false);
+
     };
 
     const resetTimer = () => {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
         setTime(0);
+        setIsRunning(false);
+
     };
 
     const formatTime = (time) => {
@@ -40,8 +50,8 @@ function App() {
                         fontFeatureSettings: "tnum",
                         fontVariantNumeric: "tabular-nums"
                     }}>{formatTime(time)}</h1>
-                    <button onClick={startTimer}>Start</button>
-                    <button onClick={stopTimer}>Stop</button>
+                    {!isRunning && <button onClick={startTimer}>Start</button>}
+                    {isRunning && <button onClick={stopTimer}>Stop</button>}
                     <button onClick={resetTimer}>Reset</button>
                 </div>
 
