@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -62,15 +61,15 @@ function StopWatch() {
                         fontVariantNumeric: "tabular-nums"
                     }}>{formatTime(time)}</h1>
                     <div style={{ display: "flex", justifyContent: "space-around", "alignItems": "center" }}>
-                        <Fab size="small" color={time ? 'warning' : ''} aria-label="reset" onClick={resetTimer} variant="contained"><ClearIcon /></Fab>
-                        {!isRunning && <Fab size="large" aria-label="start" color='primary' onClick={startTimer} variant="contained"> <PlayArrowIcon /> </Fab>}
-                        {isRunning && <Fab size="large" aria-label="pause" color='secondary' onClick={stopTimer} variant="contained"><PauseIcon /> </Fab>}
+                        <Fab style={{ width: '2rem', height: '2rem' }} color={time ? 'warning' : ''} aria-label="reset" onClick={resetTimer} variant="contained"><ClearIcon style={{ fontSize: '1rem' }} /></Fab>
+                        {!isRunning && <Fab style={{ width: '3rem', height: '3rem' }} aria-label="start" color='primary' onClick={startTimer} variant="contained"> <PlayArrowIcon style={{ fontSize: '1.5rem' }} /> </Fab>}
+                        {isRunning && <Fab style={{ width: '3rem', height: '3rem' }} aria-label="pause" color='secondary' onClick={stopTimer} variant="contained"><PauseIcon style={{ fontSize: '1.5rem' }} /> </Fab>}
 
                     </div>
 
                 </div>
-            </header>
-        </div>
+            </header >
+        </div >
     );
 }
 
