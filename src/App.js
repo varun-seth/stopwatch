@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Button from '@mui/material/Button';
 
 import logo from './logo.svg';
 import './App.css';
@@ -55,9 +56,9 @@ function App() {
                         fontFeatureSettings: "tnum",
                         fontVariantNumeric: "tabular-nums"
                     }}>{formatTime(time)}</h1>
-                    {!isRunning && <button onClick={startTimer}>Start</button>}
-                    {isRunning && <button onClick={stopTimer}>Stop</button>}
-                    <button onClick={resetTimer}>Reset</button>
+                    {!isRunning && <Button onClick={startTimer} variant="contained">Start</Button>}
+                    {isRunning && <Button onClick={stopTimer} variant="contained">Stop</Button>}
+                    <Button onClick={resetTimer} variant="contained">Reset</Button>
                 </div>
 
             </header>
