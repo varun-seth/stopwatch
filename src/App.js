@@ -18,9 +18,12 @@ function App() {
     };
 
     const stopTimer = () => {
-        updateTime();
-        setIsRunning(false);
-        cancelAnimationFrame(requestRef.current);
+        if (isRunning) {
+            // updateTime is not good enough.
+            setTime(Date.now() - startTimeRef.current);
+            setIsRunning(false);
+            cancelAnimationFrame(requestRef.current);
+        }
     };
 
     const resetTimer = () => {
@@ -29,13 +32,9 @@ function App() {
         cancelAnimationFrame(requestRef.current);
     };
 
-    const updateTime = () => {
-        const currentTime = Date.now() - startTimeRef.current;
-        setTime(currentTime);
-    };
     const updateTimeAndAnimate = () => {
-        const currentTime = Date.now() - startTimeRef.current;
-        setTime(currentTime);
+        // apparently moving this line into a function slows things down.
+        setTime(Date.now() - startTimeRef.current);
         requestRef.current = requestAnimationFrame(updateTimeAndAnimate);
     }
 
