@@ -9,3 +9,6 @@ This is a toy project of stopwatch app built using React.js
 - dark and light theme as per device preference.
 - The duration value is updated in sync with the display refresh rate
 
+### Development
+
+Run `npm install` and `npm start`
