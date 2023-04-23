@@ -3,6 +3,15 @@ body {
     color: black;
 }
 
+header {
+    display: none;
+}
+
+/* Move the content up */
+main {
+    margin-top: 0;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         /* background-color: #282c34; */
