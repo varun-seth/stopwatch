@@ -13,17 +13,13 @@ function StopWatch() {
     const [isRunning, setIsRunning] = useState(false);
     const startTimeRef = useRef(null);
     const requestRef = useRef(null);
-
+    const titleUpdateRef = useRef(null);
 
     useEffect(() => {
-        if (time) {
-            document.title = `${formatTime(time, true)} | Stopwatch`;
-        }
-
         return () => {
             document.title = "Stopwatch";
         };
-    }, [time]);
+    }, []);
 
 
     const startTimer = () => {
@@ -31,6 +27,13 @@ function StopWatch() {
             startTimeRef.current = Date.now() - time;
             setIsRunning(true);
             requestRef.current = requestAnimationFrame(updateTimeAndAnimate);
+
+            const updater = () => {
+                document.title = `${formatTime(Date.now() - startTimeRef.current, true)} - Stopwatch`;
+            }
+            updater();
+            titleUpdateRef.current = setInterval(updater, 1000); // Update title every second
+
         }
     };
 
@@ -40,6 +43,9 @@ function StopWatch() {
             setTime(Date.now() - startTimeRef.current);
             setIsRunning(false);
             cancelAnimationFrame(requestRef.current);
+
+            clearInterval(titleUpdateRef.current);
+
         }
     };
 
@@ -47,6 +53,8 @@ function StopWatch() {
         setTime(0);
         setIsRunning(false);
         cancelAnimationFrame(requestRef.current);
+        clearInterval(titleUpdateRef.current);
+        document.title = "Stopwatch";
     };
 
     const updateTimeAndAnimate = () => {
@@ -58,12 +66,14 @@ function StopWatch() {
     const formatTime = (time, secondsOnly) => {
         let timeSeconds = time / 1000;
         const minutes = Math.floor(timeSeconds / 60);
-        const seconds = Math.floor(timeSeconds % 60);
+        const seconds = secondsOnly ? Math.round(timeSeconds % 60) : Math.floor(timeSeconds % 60);
+        const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+
         if (secondsOnly) {
-            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            return formattedTime;
         }
         const milliseconds = Math.floor((timeSeconds % 1) * 100);
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+        return `${formattedTime}.${milliseconds.toString().padStart(2, '0')}`;
     };
 
 
