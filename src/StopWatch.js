@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Fab from '@mui/material/Fab';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -13,6 +13,18 @@ function StopWatch() {
     const [isRunning, setIsRunning] = useState(false);
     const startTimeRef = useRef(null);
     const requestRef = useRef(null);
+
+
+    useEffect(() => {
+        if (time) {
+            document.title = `${formatTime(time, true)} | Stopwatch`;
+        }
+
+        return () => {
+            document.title = "Stopwatch";
+        };
+    }, [time]);
+
 
     const startTimer = () => {
         if (!isRunning) {
@@ -43,10 +55,13 @@ function StopWatch() {
         requestRef.current = requestAnimationFrame(updateTimeAndAnimate);
     }
 
-    const formatTime = (time) => {
+    const formatTime = (time, secondsOnly) => {
         let timeSeconds = time / 1000;
         const minutes = Math.floor(timeSeconds / 60);
         const seconds = Math.floor(timeSeconds % 60);
+        if (secondsOnly) {
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
         const milliseconds = Math.floor((timeSeconds % 1) * 100);
         return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
     };
@@ -58,12 +73,12 @@ function StopWatch() {
             <header className="App-header">
                 <div>
                     <div className='timer-icon'>
-                    <TimerIcon style={{ fontSize: '2rem' }}/>
+                        <TimerIcon style={{ fontSize: '2rem' }} />
                     </div>
                     <h1 style={{
                         fontFeatureSettings: "tnum",
                         fontVariantNumeric: "tabular-nums",
-                        marginTop:"25px"
+                        marginTop: "25px"
                     }}>{formatTime(time)}</h1>
                     <div style={{ display: "flex", justifyContent: "space-around", "alignItems": "center" }}>
                         <Fab style={{ width: '2rem', height: '2rem' }} color={time ? 'warning' : ''} aria-label="reset" onClick={resetTimer} variant="contained"><ClearIcon style={{ fontSize: '1rem' }} /></Fab>
