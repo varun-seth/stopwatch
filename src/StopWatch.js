@@ -3,6 +3,7 @@ import Fab from '@mui/material/Fab';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ClearIcon from '@mui/icons-material/Clear';
 import PauseIcon from '@mui/icons-material/Pause';
+import TimerIcon from '@mui/icons-material/Timer';
 import './App.css';
 
 
@@ -56,9 +57,13 @@ function StopWatch() {
         <div className="App">
             <header className="App-header">
                 <div>
+                    <div className='timer-icon'>
+                    <TimerIcon style={{ fontSize: '2rem' }}/>
+                    </div>
                     <h1 style={{
                         fontFeatureSettings: "tnum",
-                        fontVariantNumeric: "tabular-nums"
+                        fontVariantNumeric: "tabular-nums",
+                        marginTop:"25px"
                     }}>{formatTime(time)}</h1>
                     <div style={{ display: "flex", justifyContent: "space-around", "alignItems": "center" }}>
                         <Fab style={{ width: '2rem', height: '2rem' }} color={time ? 'warning' : ''} aria-label="reset" onClick={resetTimer} variant="contained"><ClearIcon style={{ fontSize: '1rem' }} /></Fab>
